@@ -19,8 +19,17 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+// Notes Route
+Route::view('notes', 'notes.index')
+    ->middleware(['auth'])
+    ->name('notes.index');
+
+Route::view('notes/create', 'notes.create')
+    ->middleware(['auth'])
+    ->name('notes.create');
+
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
