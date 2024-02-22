@@ -65,7 +65,7 @@ new #[Layout('layouts.app')] class extends Component {
 
             <div class="flex justify-between pt-4">
                 <x-button type="submit" secondary spinner="saveNote">Save Note</x-button>
-                <x-button href="{{ route('notes.index') }}" flat negative>Back to Notes</x-button>
+                <x-button href="{{ route('notes.index') }}" flat negative wire:navigate>Back to Notes</x-button>
             </div>
 
             <x-action-message on="note-saved" />
