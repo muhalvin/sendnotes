@@ -15,11 +15,10 @@ class Note extends Model
         'id'
     ];
 
-    /**
-     * Get the user that owns the Note
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+    protected $casts = [
+        'is_published' => 'boolean',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

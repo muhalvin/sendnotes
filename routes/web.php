@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Livewire\Volt\Volt;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +32,9 @@ Route::view('notes/create', 'notes.create')
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
+
+Volt::route('notes/{note}/edit', 'notes.edit-note')
+    ->middleware(['auth'])
+    ->name('notes.edit');
 
 require __DIR__ . '/auth.php';

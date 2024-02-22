@@ -7,6 +7,7 @@ new class extends Component {
     public function delete($noteId)
     {
         $note = Note::where('id', $noteId)->firstOrFail();
+        $this->authorize('delete', $note);
         $note->delete();
     }
 
@@ -38,7 +39,7 @@ new class extends Component {
                     <x-card wire:key='{{ $note->id }}'>
                         <div class="flex justify-between ">
                             <div>
-                                <a href="" class="text-xl font-bold hover:text-blue-500 hover:underline">
+                                <a href="{{ route('notes.edit', $note) }}" wire:navigate class="text-xl font-bold hover:text-blue-500 hover:underline">
                                     {{ $note->title }}
                                 </a>
                                 <p class="text-xs">{{ Str::limit($note->body, 40) }}</p>
