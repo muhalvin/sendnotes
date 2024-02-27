@@ -31,7 +31,7 @@ new class extends Component {
     public function with(): array
     {
         return [
-            'notes' => Auth::user()->notes()->orderBy('send_date', 'asc')->get(),
+            'notes' => Auth::user()->notes()->orderBy('send_date', 'desc')->get(),
         ];
     }
 }; ?>
@@ -56,9 +56,15 @@ new class extends Component {
                     <x-card wire:key='{{ $note->id }}'>
                         <div class="flex justify-between ">
                             <div>
-                                <a href="{{ route('notes.edit', $note) }}" wire:navigate class="text-xl font-bold hover:text-blue-500 hover:underline">
-                                    {{ Str::limit($note->title, 20) }}
-                                </a>
+                                @can('update', $note)
+                                    <a href="{{ route('notes.edit', $note) }}" wire:navigate class="mb-2 text-lg font-bold hover:text-blue-500 hover:underline">
+                                        {{ Str::limit($note->title, 20) }}
+                                    </a>
+                                @else
+                                    <p class="mb-2 text-lg font-bold text-gray-500">
+                                        {{ Str::limit($note->title, 20) }}
+                                    </p>
+                                @endcan
                                 <p class="text-xs">{{ Str::limit($note->body, 40) }}</p>
                             </div>
                             <div class="text-xs text-gray-500">
@@ -70,7 +76,7 @@ new class extends Component {
                                 <span class="font-semibold">{{ $note->recipient }}</span>
                             </p>
                             <div>
-                                <x-button.circle icon="eye"></x-button.circle>
+                                <x-button.circle icon="eye" href="{{ route('notes.view', $note) }}" target="_blank"></x-button.circle>
                                 <x-button.circle icon="trash" wire:click="delete('{{ $note->id }}')"></x-button.circle>
                             </div>
                         </div>
